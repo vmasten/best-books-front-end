@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './myFavoriteBooks.css';
 import { withAuth0 } from '@auth0/auth0-react'
 import Carousel from 'react-bootstrap/Carousel';
+import AddBookButton from './AddBookButton'
 
 class BestBooks extends React.Component {
 
@@ -42,6 +43,7 @@ componentDidMount = () => {
           </Carousel.Caption>
         </Carousel.Item>
       ))}
+      <AddBookButton/>
       </Carousel>
     )
   }
