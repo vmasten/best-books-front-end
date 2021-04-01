@@ -7,6 +7,26 @@ import Carousel from 'react-bootstrap/Carousel';
 import AddBookButton from './AddBookButton'
 
 class BestBooks extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state= {
+      bookName: '',
+      description: '',
+      status: ''
+    }
+  }
+
+  changeName = (e) => {
+    this.setState({name: e.target.value});
+  }
+
+  changeDescription = (e) => {
+    this.setState({description: e.target.value});
+  }
+
+  changeStatus = (e) => {
+    this.setState({status: e.target.value});
+  }
 
   getBooks = async (email) => {
     const SERVER = process.env.REACT_APP_SERVER;
@@ -19,6 +39,19 @@ class BestBooks extends React.Component {
     }
     console.log(this.props.books);
   }
+
+  addBook = async (email) => {
+    const SERVER = process.env.REACT_APP_SERVER;
+    try {
+      const books = await axios.post(`${SERVER}/books`, {email: email, name: this.bookName, description: this.description, status: this.status});
+      console.log(books);
+      this.getBooks(email);
+    } catch(error) {
+      console.error(error);
+    }
+    console.log(this.props.books);
+  }
+
   
 componentDidMount = () => {
   const user = this.props.auth0.user;
@@ -28,6 +61,7 @@ componentDidMount = () => {
   render() {
     return(
       this.props.books &&
+      <>
       <Carousel> 
       {this.props.books.map((book, i) => (
         <Carousel.Item key={i}>
@@ -43,10 +77,15 @@ componentDidMount = () => {
           </Carousel.Caption>
         </Carousel.Item>
       ))}
-      <AddBookButton/>
       </Carousel>
+      <AddBookButton showForm={this.props.showForm} 
+      displayForm={this.props.displayForm}
+      changeName={this.changeName}
+      changeDescription={this.changeDescription}
+      changeStatus={this.changeStatus}
+      addBook={this.addBook}/>
+      </>
     )
   }
 }
-
 export default withAuth0(BestBooks);

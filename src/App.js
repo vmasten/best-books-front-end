@@ -18,12 +18,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       books: [],
-      email: ''
+      email: '',
+      displayForm: false
     }
   }
 
+  showForm = () => {
+    this.state.displayForm ? this.setState({displayForm: false}) : this.setState({displayForm: true});
+  }
+  
   updateBooks = (bookData) => this.setState({books: bookData});
-
 
   render() {
     console.log('app', this.props)
@@ -36,7 +40,7 @@ class App extends React.Component {
               <Switch>
                 <Route exact path="/">
                   {this.props.auth0.isAuthenticated ? 
-                    <Books books={this.state.books} updateBooks={this.updateBooks}/> : <Login/>}
+                    <Books books={this.state.books} updateBooks={this.updateBooks} displayForm={this.state.displayForm} showForm={this.showForm}/> : <Login/>}
                 </Route>
                 <Route exact path="/profile">
                     <Profile/>
