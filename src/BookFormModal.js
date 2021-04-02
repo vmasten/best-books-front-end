@@ -14,8 +14,7 @@ class NewBook extends React.Component {
   render() {
     return (
       <>
-      {console.log(this.props)}
-      <Form className="pt-3" onSubmit = {(e) => this.breakStuff(e)}>
+      <Form onSubmit = {(e) => this.breakStuff(e)}>
         <Form.Group controlId="bookForm">
           <Form.Control onChange={(e) => this.props.changeName(e)} className="w-50" type="text" placeholder="Book name"/>
         </Form.Group>
@@ -25,7 +24,7 @@ class NewBook extends React.Component {
         <Form.Group controlId="readForm">
           <Form.Control onChange={(e) => this.props.changeStatus(e)} className="w-50" type="text" placeholder="Read, unread, or reading?"/>
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button className="mb-3" type="submit">Submit</Button>
       </Form>
       </>
     )

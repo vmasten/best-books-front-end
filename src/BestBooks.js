@@ -5,6 +5,7 @@ import './myFavoriteBooks.css';
 import { withAuth0 } from '@auth0/auth0-react'
 import Carousel from 'react-bootstrap/Carousel';
 import AddBookButton from './AddBookButton'
+import DeleteButton from './DeleteButton'
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -52,6 +53,10 @@ class BestBooks extends React.Component {
     console.log(this.props.books);
   }
 
+  deleteBook = () => {
+    console.log('here');
+  }
+
   
 componentDidMount = () => {
   const user = this.props.auth0.user;
@@ -74,6 +79,7 @@ componentDidMount = () => {
             <h3>{book.name}</h3>
             <p>{book.description}</p>
             <p>{book.status}</p>
+          <DeleteButton/>
           </Carousel.Caption>
         </Carousel.Item>
       ))}

@@ -12,7 +12,7 @@ class AddBookButton extends React.Component {
   render() {
     return (
       <>
-      <Button className="mt-3" onClick={(e) => this.handleForm(e)}>Add a new book</Button>
+      <Button className="m-3" onClick={(e) => this.handleForm(e)}>Add a new book</Button>
       {this.props.displayForm && 
         <NewBook  changeName={this.props.changeName} 
                   changeDescription={this.props.changeDescription} 
