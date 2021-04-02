@@ -6,6 +6,7 @@ import { withAuth0 } from '@auth0/auth0-react'
 import Carousel from 'react-bootstrap/Carousel';
 import AddBookButton from './AddBookButton'
 import DeleteButton from './DeleteButton'
+import UpdateBookButton from './UpdateBook'
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -90,6 +91,12 @@ componentDidMount = () => {
       </Carousel>
       <AddBookButton showForm={this.props.showForm} 
       displayForm={this.props.displayForm}
+      changeName={this.changeName}
+      changeDescription={this.changeDescription}
+      changeStatus={this.changeStatus}
+      addBook={this.addBook}/>
+      <UpdateBookButton showForm={this.props.showUpdateForm} 
+      displayUpdateForm={this.props.displayUpdateForm}
       changeName={this.changeName}
       changeDescription={this.changeDescription}
       changeStatus={this.changeStatus}
