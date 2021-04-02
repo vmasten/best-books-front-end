@@ -13,12 +13,13 @@ class BestBooks extends React.Component {
     this.state= {
       bookName: '',
       description: '',
-      status: ''
+      status: '',
+      email: ''
     }
   }
 
   changeName = (e) => {
-    this.setState({name: e.target.value});
+    this.setState({bookName: e.target.value});
   }
 
   changeDescription = (e) => {
@@ -33,33 +34,36 @@ class BestBooks extends React.Component {
     const SERVER = process.env.REACT_APP_SERVER;
     try {
       const books = await axios.get(`${SERVER}/books`, {params: {email: email}});
-      console.log(books);
       this.props.updateBooks(books.data);
     } catch(error) {
       console.error(error);
     }
-    console.log(this.props.books);
   }
 
   addBook = async (email) => {
     const SERVER = process.env.REACT_APP_SERVER;
     try {
-      const books = await axios.post(`${SERVER}/books`, {email: email, name: this.state.bookName, description: this.state.description, status: this.state.status});
-      console.log(books);
+      await axios.post(`${SERVER}/books`, {email: email, name: this.state.bookName, description: this.state.description, status: this.state.status});
       this.getBooks(email);
     } catch(error) {
       console.error(error);
     }
-    console.log(this.props.books);
   }
 
-  deleteBook = () => {
-    console.log('here');
+  deleteBook = async (index) => {
+    const email = this.state.email;
+    const SERVER = process.env.REACT_APP_SERVER;
+    try {
+    await axios.delete(`${SERVER}/books/${index}`, {params: {email: email}});
+    this.getBooks(email);
+    } catch(error) {
+      console.error(error);
+    }
   }
-
   
 componentDidMount = () => {
   const user = this.props.auth0.user;
+  this.setState({email: user.email});
   this.getBooks(user.email)
 }
 
@@ -79,7 +83,7 @@ componentDidMount = () => {
             <h3>{book.name}</h3>
             <p>{book.description}</p>
             <p>{book.status}</p>
-          <DeleteButton/>
+          <DeleteButton deleteBook={this.deleteBook} index={i}/>
           </Carousel.Caption>
         </Carousel.Item>
       ))}
