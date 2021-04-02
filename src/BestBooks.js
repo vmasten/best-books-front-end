@@ -43,7 +43,7 @@ class BestBooks extends React.Component {
   addBook = async (email) => {
     const SERVER = process.env.REACT_APP_SERVER;
     try {
-      const books = await axios.post(`${SERVER}/books`, {email: email, name: this.bookName, description: this.description, status: this.status});
+      const books = await axios.post(`${SERVER}/books`, {email: email, name: this.state.bookName, description: this.state.description, status: this.state.status});
       console.log(books);
       this.getBooks(email);
     } catch(error) {
