@@ -6,6 +6,7 @@ import { withAuth0 } from '@auth0/auth0-react'
 import Carousel from 'react-bootstrap/Carousel';
 import AddBookButton from './AddBookButton'
 import DeleteButton from './DeleteButton'
+import UpdateBookButton from './UpdateBook'
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -60,6 +61,18 @@ class BestBooks extends React.Component {
       console.error(error);
     }
   }
+
+  updateBook = async (index) => {
+    const email = this.state.email;
+    console.log(email)
+    const SERVER = process.env.REACT_APP_SERVER;
+    try {
+      await axios.put(`${SERVER}/books/${index}`, {email: email, name: this.state.bookName, description: this.state.description, status: this.state.status});
+      this.getBooks(email);
+    } catch(error) {
+      console.error(error);
+    }
+  }
   
 componentDidMount = () => {
   const user = this.props.auth0.user;
@@ -84,6 +97,14 @@ componentDidMount = () => {
             <p>{book.description}</p>
             <p>{book.status}</p>
           <DeleteButton deleteBook={this.deleteBook} index={i}/>
+          <UpdateBookButton 
+          index={i}
+          showForm={this.props.showUpdateForm} 
+          displayUpdateForm={this.props.displayUpdateForm}
+          changeName={this.changeName}
+          changeDescription={this.changeDescription}
+          changeStatus={this.changeStatus}
+          updateBook={this.updateBook}/>
           </Carousel.Caption>
         </Carousel.Item>
       ))}
