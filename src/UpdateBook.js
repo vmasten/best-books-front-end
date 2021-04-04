@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import NewBook from './BookFormModal';
+import UpdateBook from './UpdateBookModal';
 
 class UpdateBookButton extends React.Component {
   
@@ -12,13 +12,16 @@ class UpdateBookButton extends React.Component {
   render() {
     return (
       <>
-      <Button className="m-3" onClick={(e) => this.handleForm(e)}>Update a book</Button>
+      <Button className="col-centered ml-3 mb-2" onClick={(e) => this.handleForm(e)}>Update</Button>
       {this.props.displayUpdateForm && 
-        <NewBook  changeName={this.props.changeName} 
-                  changeDescription={this.props.changeDescription} 
-                  changeStatus={this.props.changeStatus}
-                  addBook={this.props.addBook}
-                  email={this.props.email}/>} 
+        <UpdateBook 
+        index={this.props.index}
+        changeName={this.props.changeName} 
+        changeDescription={this.props.changeDescription} 
+        changeStatus={this.props.changeStatus}
+        updateBook={this.props.updateBook}
+        email={this.props.email}
+        showForm={this.props.showForm}/>} 
       </>
     )
   }
